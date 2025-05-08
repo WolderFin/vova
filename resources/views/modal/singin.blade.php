@@ -6,7 +6,8 @@
                 <div class="modal-header">
                     <p>Вход</p>
                 </div>
-                <form>
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
                     <input type="tel" name="tel" id="singin-tel" placeholder="Номер телефона">
                     <input type="password" name="password" placeholder="Пароль">
                     <button type="submit">Войти</button>
@@ -19,7 +20,7 @@
     IMask(
         document.getElementById('singin-tel'),
         {
-            mask: '+{7}(000)000-00-00'
+            mask: '+{7}(000) 000-00-00'
         }
     )
 </script>

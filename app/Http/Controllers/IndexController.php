@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sity;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -10,6 +11,11 @@ class IndexController extends Controller
         return view('index');
     }
     public function admin(){
-        return view('admin');
+        $cities = Sity::all();
+
+        return view('admin', compact('cities'));
+    }
+    public function account(){
+        return view('account');
     }
 }

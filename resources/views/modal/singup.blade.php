@@ -6,12 +6,13 @@
                 <div class="modal-header">
                     <p>Регистрация</p>
                 </div>
-                <form>
+                <form action="{{ route('register') }}" method="POST">
+                    @csrf
                     <input type="text" name="name" placeholder="Имя">
                     <input type="text" name="firstname" placeholder="Фамилия">
                     <input type="tel" name="tel" id="singup-tel" placeholder="Номер телефона">
-                    <input type="password" name="password" placeholder="Пароль">
-                    <input type="password" name="repassword" placeholder="Пароль повтор">
+                    <input type="password" name="password" placeholder="Пароль" min="6">
+                    <input type="password" name="password_confirmation" placeholder="Повторите пароль" min="6">
                     <button type="submit">Зарегистрироваться</button>
                 </form>
             </div>
@@ -22,7 +23,7 @@
     IMask(
         document.getElementById('singup-tel'),
         {
-            mask: '+{7}(000)000-00-00'
+            mask: '+{7}(000) 000-00-00'
         }
     )
 </script>

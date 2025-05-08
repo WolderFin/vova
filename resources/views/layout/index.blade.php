@@ -8,6 +8,26 @@
 </head>
 <body>
 <header>
+    @if (session('notyf'))
+        <script>
+            const notyf = new Notyf({
+                duration: 3000,
+                ripple: true
+            });
+
+
+            const notyfData = @json(session('notyf'));
+
+
+            if (notyfData.type === 'success') {
+                notyf.success(notyfData.message);
+            } else if (notyfData.type === 'error') {
+                notyf.error(notyfData.message);
+            }
+        </script>
+    @endif
+
+
     <div class="sitebar">
         <div class="sitebar-logo">
             <a href="{{ route('home') }}">
@@ -17,31 +37,38 @@
             </a>
         </div>
         <div class="sitebar-action">
-            <div class="sitebar-action__unlogin" style="display: none">
-                <a href="" data-hystmodal="#singin">
-                    <div class="action-linkButton">
-                        <p>Вход</p>
-                    </div>
-                </a>
-                <a href="" data-hystmodal="#singup">
-                    <div class="action-linkButton">
-                        <p>Регистрация</p>
-                    </div>
-                </a>
-            </div>
-            <div class="sitebar-action__login">
-                <a href="" data-hystmodal="#create">
-                    <div class="action-linkButton">
-                        <p>Разместить объявление</p>
-                    </div>
-                </a>
-                <form action="#">
-                    <button type="submit">Выход</button>
-                </form>
-            </div>
+
+            @guest
+                <div class="sitebar-action__unlogin">
+                    <a href="" data-hystmodal="#singin">
+                        <div class="action-linkButton">
+                            <p>Вход</p>
+                        </div>
+                    </a>
+                    <a href="" data-hystmodal="#singup">
+                        <div class="action-linkButton">
+                            <p>Регистрация</p>
+                        </div>
+                    </a>
+                </div>
+            @endguest
+
+            @auth
+                <div class="sitebar-action__login">
+                    <a href="" data-hystmodal="#create">
+                        <div class="action-linkButton">
+                            <p>Разместить объявление</p>
+                        </div>
+                    </a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit">Выход</button>
+                    </form>
+                </div>
+            @endauth
         </div>
         <div class="sitebar-search">
-            <input type="text" name="search">
+            <input type="text" name="search" placeholder="Поиск">
             <button type="submit">Найти</button>
         </div>
         <a href="#" data-hystmodal="#city">
