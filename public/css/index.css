@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:root{
+    --primary: #00416a;
+    --white: #fff;
+    --black: #000;
+    --red: #C53206;
+    --gray: #666;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Roboto", sans-serif;
+}
+main{
+    flex: 1;
+}
+a{
+    text-decoration: none;
+}
+.logo{
+    background: var(--primary);
+    width: fit-content;
+    color: var(--white);
+    padding: 15px 20px;
+    border-radius: 20px 20px 0 20px;
+}
+.sitebar{
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 20%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.container{
+    max-width: calc(80% - 20px);
+    margin-left: auto;
+    padding: 10px 10px;
+}
+.sitebar-container{
+    flex: .2;
+}
+.content-container{
+    flex: 1;
+}
+.sitebar-logo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px 10px;;
+}
+.sitebar-search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sitebar-search input{
+    width: 100%;
+    height: 40px;
+    border-radius: 10px 0 0 10px;
+    outline: none;
+    border: solid 1px var(--black);
+    padding: 0 10px;
+}
+.sitebar-search button{
+    height: 40px;
+    padding: 0 20px;
+    cursor: pointer;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 0 10px 10px 0;
+    outline: none;
+    border: none;
+}
+.sitebar-city__ico{
+    width: 30px;
+    height: 30px;
+    background: var(--black);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-image: url("data:image/svg+xml,%3Csvg width='17' height='24' viewBox='0 0 17 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.5142 8.21148C11.5142 8.86031 11.322 9.4946 10.9619 10.0343C10.6018 10.5741 10.0899 10.9951 9.49087 11.2442C8.89179 11.4934 8.23234 11.5596 7.5957 11.4344C6.95907 11.3092 6.37377 10.9982 5.91365 10.5408C5.45352 10.0833 5.13919 9.49985 5.01029 8.86395C4.8814 8.22806 4.94372 7.56823 5.18939 6.96771C5.43506 6.3672 5.85308 5.85289 6.39072 5.48967C6.92835 5.12645 7.56152 4.9306 8.21033 4.92681C8.64329 4.92429 9.07248 5.00738 9.47321 5.17132C9.87393 5.33526 10.2383 5.57681 10.5453 5.88207C10.8524 6.18733 11.096 6.55028 11.2623 6.95005C11.4286 7.34982 11.5142 7.77852 11.5142 8.21148Z' fill='black'/%3E%3Cpath d='M8.21004 2.9476e-05C6.74682 0.000320079 5.31025 0.391579 4.04896 1.13332C2.78768 1.87507 1.7475 2.94036 1.03604 4.21897C0.324584 5.49759 -0.0323059 6.94308 0.00229704 8.40589C0.0369 9.8687 0.461739 11.2957 1.23286 12.5392L8.34964 24L15.2775 12.4298C16.0246 11.1819 16.4269 9.7581 16.4432 8.30383C16.4595 6.84957 16.0893 5.41706 15.3705 4.15279C14.6516 2.88851 13.6099 1.83784 12.3518 1.1082C11.0937 0.378558 9.66439 -0.00386672 8.21004 2.9476e-05ZM8.21004 13.1387C7.23557 13.1387 6.28298 12.8497 5.47274 12.3083C4.6625 11.767 4.031 10.9975 3.65808 10.0972C3.28517 9.19689 3.1876 8.20623 3.37771 7.25049C3.56782 6.29474 4.03707 5.41684 4.72612 4.72778C5.41518 4.03873 6.29308 3.56948 7.24883 3.37937C8.20457 3.18926 9.19523 3.28683 10.0955 3.65974C10.9958 4.03266 11.7653 4.66416 12.3067 5.4744C12.8481 6.28464 13.137 7.23723 13.137 8.2117C13.137 9.51842 12.6179 10.7716 11.694 11.6956C10.77 12.6196 9.51676 13.1387 8.21004 13.1387Z' fill='black'/%3E%3C/svg%3E%0A");
+}
+.sitebar-city{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sitebar-city p{
+    font-size: 18px;
+    color: var(--black);
+}
+.action-linkButton{
+    width: 100%;
+    flex: 1;
+    padding: 10px 0;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    border-radius: 10px;
+}
+.sitebar-action__login button{
+    width: 100%;
+    flex: 1;
+    padding: 10px 0;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.sitebar-action__unlogin{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sitebar-action__unlogin a{
+    flex: 1;
+}
+.sitebar-action__login{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sitebar-action__login a:last-child .action-linkButton{
+    background: var(--red);
+}
+.modal-container{
+    position: relative;
+}
+.modal-close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background: var(--black);
+    mask-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L11 11M1 11L11 1' stroke='%23636363' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+}
+.modal-container{
+    padding: 50px 10px;
+}
+.modal-city__list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-city__list a{
+    width: 100%;
+    background: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+.modal-container form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-container form input{
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: solid 1px var(--black);
+    padding: 0 10px;
+}
+.modal-container form select{
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: solid 1px var(--black);
+    padding: 0 10px;
+}
+
+.modal-container form button{
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background: var(--primary);
+    color: var(--white);
+    cursor: pointer;
+}
+.modal-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-header p{
+    font-size: 28px;
+    margin: 10px 0;
+}
+.hystmodal__window{
+    border-radius: 10px;
+}
+.photo-input{
+    display: none;
+}
+.photo-label{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
