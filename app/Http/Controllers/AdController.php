@@ -42,30 +42,43 @@ class AdController extends Controller
         return redirect()->route('ads');
     }
 
-    public function updateStatus(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        // Находим объявление по ID
         $ad = Ad::find($id);
 
         if (!$ad) {
-            return redirect()->route('ads')->with('error', 'Объявление не найдено');
+            // Уведомление о том, что объявление не найдено
+            Session::flash('notyf', ['type' => 'error', 'message' => 'Объявление не найдено!']);
+            return redirect()->route('ads.index');
         }
 
-        // Валидация статуса
+        // Валидируем данные
         $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'nullable|string|max:500',
+            'city_id' => 'required|exists:sities,id',
+            'category_id' => 'required|exists:categories,id',
             'status' => 'required|string|in:Размещено,Отклонено,На модерации',
         ]);
 
-        // Обновляем только статус
+        // Обновляем объявление
+        $ad->name = $validated['name'];
+        $ad->price = $validated['price'];
+        $ad->description = $validated['description'];
+        $ad->city_id = $validated['city_id'];
+        $ad->category_id = $validated['category_id'];
         $ad->status = $validated['status'];
         $ad->save();
 
         // Уведомление об успешном обновлении
-        Session::flash('notyf', ['type' => 'success', 'message' => 'Статус объявления успешно обновлен!']);
+        Session::flash('notyf', ['type' => 'success', 'message' => 'Объявление успешно обновлено!']);
 
-        // Возвращаем на страницу с объявлениями
         return redirect()->route('ads');
     }
+
+
+
     public function store(Request $request)
     {
         $validated = $request->validate([

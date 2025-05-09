@@ -18,10 +18,12 @@ Route::post('/admin/categories/create', [CategoryController::class, 'create'])->
 
 Route::get('/admin/ads', [AdController::class, 'ads'])->name('ads')->middleware('auth');
 Route::delete('/admin/ads/delete/{id}', [AdController::class, 'delete'])->name('ads.delete');
+Route::put('/admin/ads/update/{id}', [AdController::class, 'update'])->name('ads.update');
 
 
 
 Route::get('/account', [IndexController::class, 'account'])->name('account')->middleware('auth');
+Route::put('/account/update/{id}', [IndexController::class, 'update'])->name('accountUpdate')->middleware('auth');
 
 
 

@@ -12,4 +12,7 @@
 @include('modal.updateCategories')
 @include('modal.createCategories')
 @include('modal.updateAds')
+@auth
+    @include('modal.accountSettings')
+@endauth
 <script src="{{ asset('js/city.js') }}"></script>

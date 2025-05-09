@@ -35,4 +35,8 @@ class Ad extends Model
     {
         return $this->belongsTo(Sity::class, 'city_id'); // Указываем правильное имя поля (city_id)
     }
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class);
+    }
 }

@@ -7,28 +7,37 @@
                     <p>Редактирование объявления</p>
                 </div>
 
-                <div class="modal-body">
-                    <p><strong>Название:</strong> <span id="adNameText"></span></p>
-                    <p><strong>Цена:</strong> <span id="adPriceText"></span></p>
-                    <p><strong>Описание:</strong> <span id="adDescriptionText"></span></p>
-                    <p><strong>Город:</strong> <span id="adCityText"></span></p>
-                    <p><strong>Категория:</strong> <span id="adCategoryText"></span></p>
-                    <p><strong>URL:</strong> <span id="adUrlText"></span></p>
+                <form id="editAdForm" action="" method="POST">
+                    @csrf
+                    @method('PUT') <!-- Используем PUT для обновления -->
 
-                    <!-- Статус объявления -->
-                    <p><strong>Статус:</strong></p>
+                    <input type="text" name="name" id="adName" placeholder="Название объявления" required>
+                    <input type="text" name="price" id="adPrice" placeholder="Цена" required>
+                    <input type="text" name="description" id="adDescription" placeholder="Описание" required>
+
+                    <select name="city_id" id="adCity">
+
+                        @foreach($globalCity as $city)
+                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <select name="category_id" id="adCategory">
+
+                        @foreach($globalCategory as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+
                     <select name="status" id="adStatus">
                         <option value="Размещено">Размещено</option>
                         <option value="Отклонено">Отклонено</option>
                         <option value="На модерации">На модерации</option>
                     </select>
 
-                    <form id="editAdForm" action="" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit">Обновить статус</button>
-                    </form>
-                </div>
+                    <button type="submit">Обновить объявление</button>
+                </form>
+
             </div>
         </div>
     </div>

@@ -54,6 +54,7 @@
             @endguest
 
             @auth
+
                 <div class="sitebar-action__login">
                     <a href="" data-hystmodal="#create">
                         <div class="action-linkButton">
@@ -65,12 +66,27 @@
                             <p>Личный кабинет</p>
                         </div>
                     </a>
+
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
+                        <a href="">
+                            <div class="action-linkButton">
+                                <p>Избранное</p>
+                            </div>
+                        </a>
+                        <a href="" data-hystmodal="#accountSettings">
+                            <div class="action-linkButton">
+                                <p>Настройки</p>
+                            </div>
+                        </a>
+                    @endif
+
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit">Выход</button>
                     </form>
                 </div>
             @endauth
+
         </div>
         <div class="sitebar-search">
             <form action="{{ route('search') }}" method="get">

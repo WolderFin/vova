@@ -67,6 +67,53 @@
         @endforeach
 
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.edit-ad').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Получаем данные объявления из атрибутов data-*
+                    const adId = this.getAttribute('data-id');
+                    const adName = this.getAttribute('data-name');
+                    const adPrice = this.getAttribute('data-price');
+                    const adDescription = this.getAttribute('data-description');
+                    const adStatus = this.getAttribute('data-status');
+                    const adCityId = this.getAttribute('data-city'); // ID города
+                    const adCategoryId = this.getAttribute('data-category'); // ID категории
+
+                    // Устанавливаем значения полей ввода в модалке
+                    document.getElementById('adName').value = adName;
+                    document.getElementById('adPrice').value = adPrice;
+                    document.getElementById('adDescription').value = adDescription;
+                    document.getElementById('adStatus').value = adStatus;
+
+                    // Настроим город
+                    const citySelect = document.getElementById('adCity');
+                    for (let option of citySelect.options) {
+                        if (option.value == adCityId) {
+                            option.selected = true;  // Выбираем город, который был выбран
+                            break;
+                        }
+                    }
+
+                    // Настроим категорию
+                    const categorySelect = document.getElementById('adCategory');
+                    for (let option of categorySelect.options) {
+                        if (option.value == adCategoryId) {
+                            option.selected = true;  // Выбираем категорию, которая была выбрана
+                            break;
+                        }
+                    }
+
+                    // Настроим действие формы на правильный маршрут для обновления объявления
+                    const editForm = document.getElementById('editAdForm');
+                    editForm.action = '/admin/ads/update/' + adId; // Путь для обновления объявления
+
+                });
+            });
+        });
 
 
+    </script>
 @endsection
