@@ -34,3 +34,8 @@ Route::get('/cities', [CityController::class, 'sities'])->name('cities');
 Route::delete('/cities/{id}', [CityController::class, 'delete'])->name('cities.delete');
 Route::put('/cities/{id}', [CityController::class, 'update'])->name('cities.update');
 Route::post('/cities/create', [CityController::class, 'create'])->name('cities.create');
+
+
+Route::post('/ads/store', [AdController::class, 'store'])->name('ads.store');
+Route::get('/search', [IndexController::class, 'search'])->name('search');
+Route::get('/ad/{slug}', [IndexController::class, 'ad'])->name('ads.show');

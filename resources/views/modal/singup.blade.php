@@ -6,6 +6,7 @@
                 <div class="modal-header">
                     <p>Регистрация</p>
                 </div>
+
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <input type="text" name="name" placeholder="Имя">
@@ -15,6 +16,15 @@
                     <input type="password" name="password_confirmation" placeholder="Повторите пароль" min="6">
                     <button type="submit">Зарегистрироваться</button>
                 </form>
+                @if ($errors->any())
+                    <div>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

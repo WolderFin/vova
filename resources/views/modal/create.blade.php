@@ -6,26 +6,43 @@
                 <div class="modal-header">
                     <p>Разместить объявление</p>
                 </div>
-                <form>
+                <form action="{{ route('ads.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+
                     <input type="text" name="name" placeholder="Название объявления">
-                    <select>
+
+                    <select name="city_id">
                         <option disabled selected>Выберите город</option>
-                        <option>sadasdas</option>
-                        <option>sadasdas</option>
-                        <option>sadasdas</option>
+                        @foreach($globalCity as $city)
+                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                        @endforeach
                     </select>
+
                     <label for="photo" class="photo-label">Загрузить фото</label>
                     <input type="file" name="photo" id="photo" class="photo-input">
+
                     <input type="text" name="description" placeholder="Описания объявления">
-                    <select>
+
+                    <select name="category_id">
                         <option disabled selected>Выберите категорию</option>
-                        <option>sadasdas</option>
-                        <option>sadasdas</option>
-                        <option>sadasdas</option>
+                        @foreach($globalCategory as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
                     </select>
+
                     <input type="text" name="price" id="create-price" placeholder="Цена">
+
                     <button type="submit">Создать</button>
                 </form>
+                @if ($errors->any())
+                    <div>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

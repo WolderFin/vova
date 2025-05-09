@@ -1,14 +1,10 @@
 @extends('layout.index')
 @section('main')
-    <div class="page-action category">
-        @foreach($globalCategory as $category)
-            <a href="?{{$category->url}}"><p>{{$category->name}}</p></a>
-        @endforeach
-            <a href="{{route('home')}}"><p>Сбросить фильтр</p></a>
-    </div>
+    <h1>Результат поиска: {{ $request['search'] }}</h1>
+    <br>
     <div class="grid-container">
         @if($ads->isEmpty())
-            <p>Пока нет доступных объявлений</p>
+            <p>Нет объявлений по запросу</p>
         @else
             @foreach($ads as $ad)
                 <a href="{{ route('ads.show', $ad->url) }}">

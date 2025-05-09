@@ -6,7 +6,7 @@
 }
 :root{
     --primary: #00416a;
-    --white: #fff;
+    --white: rgb(255, 255, 255);
     --black: #000;
     --red: #C53206;
     --gray: #666;
@@ -64,7 +64,7 @@ a{
     gap: 20px;
     padding: 20px 10px;;
 }
-.sitebar-search{
+.sitebar-search form{
     display: flex;
     align-items: center;
     justify-content: center;

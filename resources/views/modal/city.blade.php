@@ -7,7 +7,9 @@
                     <p>Выберите город</p>
                 </div>
                 <div class="modal-city__list" id="cities-list">
-
+                    @foreach($globalCity as $city)
+                        <a href="#" data-city="{{$city->name}}"><p>{{$city->name}}</p></a>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -15,33 +17,6 @@
 </div>
 
 <script>
-    // Функция для загрузки данных о городах
-    function loadCities() {
-        fetch('/cities') // Запрос на сервер
-            .then(response => response.json()) // Преобразуем ответ в JSON
-            .then(cities => {
-                const citiesList = document.getElementById('cities-list'); // Находим контейнер для городов
-                citiesList.innerHTML = ''; // Очищаем список перед добавлением новых элементов
-
-                // Проходим по всем городам и добавляем их в список
-                cities.forEach(city => {
-                    const cityElement = document.createElement('a');
-                    cityElement.href = '#';
-                    cityElement.setAttribute('data-city', city.name);
-
-                    const cityText = document.createElement('p');
-                    cityText.textContent = city.name;
-
-                    cityElement.appendChild(cityText);
-                    citiesList.appendChild(cityElement); // Добавляем элемент <a> в список
-                });
-            })
-            .catch(error => console.error('Error loading cities:', error)); // Обрабатываем ошибку
-    }
-
-    // Загружаем города при загрузке страницы
-    document.addEventListener('DOMContentLoaded', loadCities);
-
     // Делегирование события для клика по ссылке города
     document.getElementById('cities-list').addEventListener('click', function(e) {
         // Проверяем, что клик был по <a> или его внутренним элементам
@@ -53,6 +28,7 @@
             // Закрываем модалку
             if (typeof Modal !== 'undefined' && Modal.close) {
                 Modal.close("#city");
+                location.reload();
             }
         }
     });
