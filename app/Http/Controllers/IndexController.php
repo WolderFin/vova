@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\Category;
+use App\Models\Favourite;
 use App\Models\Sity;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -100,7 +101,16 @@ class IndexController extends Controller
             ->where('status', 'Размещено')
             ->firstOrFail();
         $ad_similar = Ad::where('category_id', $ad->category_id)->where('id', '!=', $ad->id)->where('status', 'Размещено')->get();
-        return view('ad', compact('ad', 'ad_similar'));
+        if(Auth::check()){
+            $ad_fav = Favourite::where('user_id', Auth::user()->id)->get();
+        }
+        return view('ad', compact('ad', 'ad_similar', 'ad_fav'));
+    }
+    public function fav(){
+        if(Auth::check()){
+            $ad_fav = Favourite::where('user_id', Auth::user()->id)->get();
+        }
+        return view('fav', compact('ad_fav'));
     }
 
     public function update(Request $request, $id)

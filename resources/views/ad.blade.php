@@ -13,6 +13,15 @@
                 <div class="product-contacts">
                     <p>Телефон: {{ $ad->user->phone }}</p>
                     <p>Продавец: {{ $ad->user->name }}</p>
+                    <form action="{{ route('fav.store') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="ad_id" value="{{ $ad->id }}">
+                        @if($ad_fav->contains('ad_id', $ad->id))
+                            <button type="submit" class="active">Удалить из избранного</button>
+                        @else
+                            <button type="submit">Добавить в избранное</button>
+                        @endif
+                    </form>
                 </div>
             @else
                 <div class="product-contacts">

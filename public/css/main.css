@@ -156,6 +156,9 @@
     padding: 20px;
     height: fit-content;
     color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 .product-info{
     display: flex;
@@ -168,4 +171,17 @@
     background: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 20px 20px 0 0;
+}
+.product-contacts button{
+    width: 100%;
+    background: var(--white);
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.product-contacts button.active{
+    background: var(--red);
+    color: var(--white);
 }

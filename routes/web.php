@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\FavouriteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
@@ -41,3 +42,5 @@ Route::post('/cities/create', [CityController::class, 'create'])->name('cities.c
 Route::post('/ads/store', [AdController::class, 'store'])->name('ads.store');
 Route::get('/search', [IndexController::class, 'search'])->name('search');
 Route::get('/ad/{slug}', [IndexController::class, 'ad'])->name('ads.show');
+Route::get('/fav', [IndexController::class, 'fav'])->name('fav.show');
+Route::post('/fav/store', [FavouriteController::class, 'store'])->name('fav.store');

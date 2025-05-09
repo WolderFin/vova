@@ -68,7 +68,7 @@
                     </a>
 
                     @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
-                        <a href="">
+                        <a href="{{route('fav.show')}}">
                             <div class="action-linkButton">
                                 <p>Избранное</p>
                             </div>
