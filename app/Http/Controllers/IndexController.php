@@ -6,6 +6,7 @@ use App\Models\Ad;
 use App\Models\Category;
 use App\Models\Sity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -33,6 +34,20 @@ class IndexController extends Controller
 
         return view('index', compact('ads'));
     }
+    public function redirect(){
+        $user = Auth::user();
+        if (Auth::check()) {
+            if ($user->role == 'admin') {
+                return redirect()->route('admin');
+            }
+            if ($user->role == 'user') {
+                return redirect()->route('account');
+            }
+        }
+        else{
+            return redirect()->route('home');
+        }
+    }
     public function search(Request $request){
         $query = Ad::query();
 
@@ -58,10 +73,20 @@ class IndexController extends Controller
     }
     public function admin(){
         $cities = Sity::all();
-        return view('admin', compact('cities'));
+        if (Auth::user()->role === 'admin') {
+            return view('admin', compact('cities'));
+        }
+        else{
+            return $this->redirect();
+        }
     }
     public function account(){
-        return view('account');
+        if (Auth::user()->role === 'user') {
+            return view('account');
+        }
+        else{
+            return $this->redirect();
+        }
     }
     public function ad($slug){
         $ad = Ad::where('url', $slug)
