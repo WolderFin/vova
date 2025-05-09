@@ -1,9 +1,9 @@
 @extends('layout.index')
 @section('main')
-    <h1>Ваши объявления</h1> <br>
+    <h1>Избранное</h1> <br>
     <div class="grid-container">
         @if($ad_fav->isEmpty())
-            <p>Пока нет доступных объявлений</p>
+            <p>У вас пока нет избранных объявлений.</p>
         @else
             @foreach($ad_fav as $item)
                 <!-- Проверяем статус объявления и делаем ссылку не кликабельной -->
