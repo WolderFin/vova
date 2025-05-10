@@ -103,6 +103,8 @@ class IndexController extends Controller
         $ad_similar = Ad::where('category_id', $ad->category_id)->where('id', '!=', $ad->id)->where('status', 'Размещено')->get();
         if(Auth::check()){
             $ad_fav = Favourite::where('user_id', Auth::user()->id)->get();
+        } else{
+            $ad_fav = [];
         }
         return view('ad', compact('ad', 'ad_similar', 'ad_fav'));
     }
