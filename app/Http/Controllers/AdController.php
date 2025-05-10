@@ -54,12 +54,12 @@ class AdController extends Controller
 
         // Валидируем данные
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'description' => 'nullable|string|max:500',
-            'city_id' => 'required|exists:sities,id',
-            'category_id' => 'required|exists:categories,id',
-            'status' => 'required|string|in:Размещено,Отклонено,На модерации',
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'city_id' => 'required',
+            'category_id' => 'required',
+            'status' => 'required',
         ]);
 
         // Обновляем объявление

@@ -56,11 +56,7 @@
             @auth
 
                 <div class="sitebar-action__login">
-                    <a href="" data-hystmodal="#create">
-                        <div class="action-linkButton">
-                            <p>Разместить объявление</p>
-                        </div>
-                    </a>
+
                     <a href="@if(\Illuminate\Support\Facades\Auth::user()->role == 'admin') {{ route('admin') }} @elseif (\Illuminate\Support\Facades\Auth::user()->role == 'user') {{ route('account') }} @endif">
                         <div class="action-linkButton">
                             <p>Личный кабинет</p>
@@ -68,6 +64,11 @@
                     </a>
 
                     @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
+                        <a href="" data-hystmodal="#create">
+                            <div class="action-linkButton">
+                                <p>Разместить объявление</p>
+                            </div>
+                        </a>
                         <a href="{{route('fav.show')}}">
                             <div class="action-linkButton">
                                 <p>Избранное</p>
