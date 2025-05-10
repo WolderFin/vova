@@ -26,6 +26,11 @@
                                 {{ $item->ad->status }}
                             </span>
                             </div>
+                            <form action="{{ route('fav.store') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="ad_id" value="{{ $item->ad->id }}">
+                                <button type="submit" class="active">Удалить из избранного</button>
+                            </form>
                         </div>
                     </div>
                 @else
@@ -48,6 +53,11 @@
                                     {{ $item->ad->status }}
                                 </span>
                                 </div>
+                                <form action="{{ route('fav.store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="ad_id" value="{{ $item->ad->id }}">
+                                    <button type="submit" class="active">Удалить из избранного</button>
+                                </form>
                             </div>
                         </div>
                     </a>

@@ -185,3 +185,29 @@
     background: var(--red);
     color: var(--white);
 }
+.grid-item button{
+    width: 100%;
+    background: var(--white);
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.grid-item button.active{
+    background: var(--red);
+    color: var(--white);
+}
+.modal-ad-product{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.grid-item__img{
+    position: relative;
+}
+.grid-item__img > .admin-table__item-action{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

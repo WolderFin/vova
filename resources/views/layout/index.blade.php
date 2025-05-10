@@ -54,19 +54,17 @@
             @endguest
 
             @auth
-
                 <div class="sitebar-action__login">
-
-                    <a href="@if(\Illuminate\Support\Facades\Auth::user()->role == 'admin') {{ route('admin') }} @elseif (\Illuminate\Support\Facades\Auth::user()->role == 'user') {{ route('account') }} @endif">
-                        <div class="action-linkButton">
-                            <p>Личный кабинет</p>
-                        </div>
-                    </a>
 
                     @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
                         <a href="" data-hystmodal="#create">
                             <div class="action-linkButton">
                                 <p>Разместить объявление</p>
+                            </div>
+                        </a>
+                        <a href="{{ route('account') }}">
+                            <div class="action-linkButton">
+                                <p>Мои объявления</p>
                             </div>
                         </a>
                         <a href="{{route('fav.show')}}">
@@ -80,7 +78,23 @@
                             </div>
                         </a>
                     @endif
-
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == 'admin')
+                        <a href="{{ route('admin') }}">
+                            <div class="action-linkButton">
+                                <p>Города</p>
+                            </div>
+                        </a>
+                        <a href="{{ route('ads') }}">
+                            <div class="action-linkButton">
+                                <p>Объявления</p>
+                            </div>
+                        </a>
+                        <a href="{{ route('category') }}">
+                            <div class="action-linkButton">
+                                <p>Категории</p>
+                            </div>
+                        </a>
+                    @endif
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit">Выход</button>
@@ -89,12 +103,24 @@
             @endauth
 
         </div>
-        <div class="sitebar-search">
-            <form action="{{ route('search') }}" method="get">
-                <input type="text" name="search" placeholder="Поиск">
-                <button type="submit">Найти</button>
-            </form>
-        </div>
+        @guest()
+            <div class="sitebar-search">
+                <form action="{{ route('search') }}" method="get">
+                    <input type="text" name="search" placeholder="Поиск">
+                    <button type="submit">Найти</button>
+                </form>
+            </div>
+        @endguest
+        @auth()
+            @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
+                <div class="sitebar-search">
+                    <form action="{{ route('search') }}" method="get">
+                        <input type="text" name="search" placeholder="Поиск">
+                        <button type="submit">Найти</button>
+                    </form>
+                </div>
+            @endif
+        @endauth
         <a href="#" data-hystmodal="#city">
             <div class="sitebar-city">
                 <div class="sitebar-city__ico">

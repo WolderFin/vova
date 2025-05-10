@@ -33,13 +33,13 @@ class AdController extends Controller
             Session::flash('notyf', ['type' => 'success', 'message' => 'Объявление успешно удалено.']);
 
             // Перенаправляем обратно на страницу с объявлениями
-            return redirect()->route('ads');
+            return redirect()->back();
         }
 
         // Если объявление не найдено, возвращаем ошибку
         Session::flash('notyf', ['type' => 'error', 'message' => 'Объявление не найдено.']);
 
-        return redirect()->route('ads');
+        return redirect()->back();
     }
 
     public function update(Request $request, $id)
@@ -74,7 +74,7 @@ class AdController extends Controller
         // Уведомление об успешном обновлении
         Session::flash('notyf', ['type' => 'success', 'message' => 'Объявление успешно обновлено!']);
 
-        return redirect()->route('ads');
+        return redirect()->back();
     }
 
 

@@ -1,12 +1,6 @@
 @extends('layout.index')
 @section('main')
     <div class="page-action">
-
-        <a href="{{ route('ads') }}"><p>Объявления</p></a>
-        <a href="{{ route('category') }}"><p>Категории</p></a>
-    </div>
-    <div class="page-action">
-        <a href="#" data-hystmodal="#createCities"><p>Добавить город</p></a>
         <a href="#" data-hystmodal="#createCategories"><p>Добавить категорию</p></a>
     </div>
     <h1>Все категории</h1>

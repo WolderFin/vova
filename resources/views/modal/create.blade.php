@@ -19,7 +19,7 @@
                     </select>
 
                     <label for="photo" class="photo-label">Загрузить фото</label>
-                    <input type="file" name="photo" id="photo" class="photo-input">
+                    <input type="file" name="photo" id="photo" class="photo-input" onchange="updateLabel()">
 
                     <input type="text" name="description" placeholder="Описания объявления">
 
@@ -56,4 +56,13 @@
             thousandsSeparator: ' '
         }
     )
+
+
+
+    function updateLabel() {
+        var fileInput = document.getElementById('photo');
+        var label = document.querySelector('.photo-label');
+        var fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'Загрузить фото';
+        label.textContent = fileName;
+    }
 </script>

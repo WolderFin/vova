@@ -6,17 +6,16 @@
                 <div class="modal-header">
                     <p>Редактирование объявления</p>
                 </div>
-
+                <img src="#" alt="" id="adImage" class="modal-ad-product">
                 <form id="editAdForm" action="" method="POST">
                     @csrf
-                    @method('PUT') <!-- Используем PUT для обновления -->
+                    @method('PUT')
 
                     <input type="text" name="name" id="adName" placeholder="Название объявления" required>
                     <input type="text" name="price" id="adPrice" placeholder="Цена" required>
                     <input type="text" name="description" id="adDescription" placeholder="Описание" required>
 
                     <select name="city_id" id="adCity">
-
                         @foreach($globalCity as $city)
                             <option value="{{ $city->id }}">{{ $city->name }}</option>
                         @endforeach
@@ -28,13 +27,17 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-
-                    <select name="status" id="adStatus">
-                        <option value="Размещено">Размещено</option>
-                        <option value="Отклонено">Отклонено</option>
-                        <option value="На модерации">На модерации</option>
-                    </select>
-
+                    @auth()
+                        @if(\Illuminate\Support\Facades\Auth::user()->role === 'admin')
+                            <select name="status" id="adStatus">
+                                <option value="Размещено">Размещено</option>
+                                <option value="Отклонено">Отклонено</option>
+                                <option value="На модерации">На модерации</option>
+                            </select>
+                        @else
+                            <input type="hidden" name="status" id="adStatus">
+                        @endif
+                    @endauth
                     <button type="submit">Обновить объявление</button>
                 </form>
 
@@ -42,3 +45,13 @@
         </div>
     </div>
 </div>
+<script>
+    IMask(
+        document.getElementById('adPrice'),
+        {
+            mask: Number,
+            min: 0,
+            thousandsSeparator: ' '
+        }
+    )
+</script>
