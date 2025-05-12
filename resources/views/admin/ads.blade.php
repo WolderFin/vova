@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="admin-table__item-action">
-                        <a href="#" data-hystmodal="#updateAd" class="edit-ad" data-id="{{ $ad->id }}" data-name="{{ $ad->name }}" data-image="{{ '/storage/' . $ad->image }}" data-price="{{ $ad->price }}" data-description="{{ $ad->description }}" data-status="{{ $ad->status }}" data-category="{{ $ad->category->name }}" data-city="{{ $ad->city->name }}" data-url="{{ $ad->url }}">
+                        <a href="#" data-hystmodal="#updateAd" class="edit-ad" data-id="{{ $ad->id }}" data-name="{{ $ad->name }}" data-image="{{ '/storage/' . $ad->image }}" data-price="{{ $ad->price }}" data-description="{{ $ad->description }}" data-status="{{ $ad->status }}" data-category="{{ $ad->category->id }}" data-city="{{ $ad->city->id }}" data-url="{{ $ad->url }}">
                             <div class="admin-table__action-edit">
                                 <div class="action-edit__ico"></div>
                             </div>

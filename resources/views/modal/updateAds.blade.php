@@ -22,7 +22,6 @@
                     </select>
 
                     <select name="category_id" id="adCategory">
-
                         @foreach($globalCategory as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
@@ -40,11 +39,11 @@
                     @endauth
                     <button type="submit">Обновить объявление</button>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+
 <script>
     IMask(
         document.getElementById('adPrice'),
@@ -54,4 +53,5 @@
             thousandsSeparator: ' '
         }
     )
+
 </script>
