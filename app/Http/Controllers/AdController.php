@@ -83,7 +83,7 @@ class AdController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'photo' => 'required|image|mimes:jpg,jpeg,png',
             'description' => 'required|string',
             'price' => 'required|string',
             'city_id' => 'required|exists:sities,id',
