@@ -2,9 +2,12 @@
 @section('main')
     <div class="page-action category">
         @foreach($globalCategory as $category)
-            <a href="?{{$category->url}}"><p>{{$category->name}}</p></a>
+            <a href="?category={{$category->url}}"><p>{{$category->name}}</p></a>
         @endforeach
             <a href="{{route('home')}}"><p>Сбросить фильтр</p></a>
+    </div>
+    <div class="page-action">
+        <h1 id="indexPage-title">Все объявления</h1>
     </div>
     <div class="grid-container">
         @if($ads->isEmpty())
@@ -30,4 +33,46 @@
             @endforeach
         @endif
     </div>
+    <script>
+        const cities = new Map([
+            @foreach($globalCategory as $category)
+            ['{{$category->url}}', '{{$category->name}}'],
+            @endforeach
+        ])
+        // Функция для получения значения из URL параметра
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Функция для получения значения куки
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        // Основная логика
+        window.addEventListener('DOMContentLoaded', function() {
+            // Получаем категорию из GET-запроса (имя категории)
+            const category = getQueryParam('category');  // Например, "phone"
+
+            // Получаем город из куки
+            const city = getCookie('selectedCity');
+
+            // Определяем название
+            let title = category ? cities.get(category) : "Все объявления";  // Если категория не указана, показываем "Все объявления"
+
+            // Добавляем город, если он есть
+            if (city) {
+                title = `${title} в ${city}`;
+            } else {
+                title = `${title} в России`;
+            }
+
+            // Устанавливаем новый заголовок
+            document.getElementById('indexPage-title').textContent = title;
+        });
+    </script>
 @endsection

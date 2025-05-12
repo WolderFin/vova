@@ -10,6 +10,7 @@
     --black: #000;
     --red: #C53206;
     --gray: #666;
+    --main-gray: #494949;
 }
 body{
     display: flex;
@@ -109,7 +110,7 @@ a{
     width: 100%;
     flex: 1;
     padding: 10px 0;
-    background: var(--primary);
+    background: var(--main-gray);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,8 +200,28 @@ a{
     border: solid 1px var(--black);
     padding: 0 10px;
 }
-
 .modal-container form button{
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background: var(--primary);
+    color: var(--white);
+    cursor: pointer;
+}
+.sitebar-filter form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sitebar-filter form select{
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: solid 1px var(--black);
+    padding: 0 10px;
+}
+.sitebar-filter form button{
     height: 40px;
     border-radius: 5px;
     outline: none;
@@ -236,4 +257,9 @@ a{
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+.page-action.search{
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }

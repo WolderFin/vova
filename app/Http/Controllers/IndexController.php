@@ -14,16 +14,17 @@ use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $query = Ad::with(['user', 'category', 'city']) // Загружаем связи сразу
         ->where('status', 'Размещено');
 
-        // Фильтр по категории — по GET параметру, например: ?car
-        $categoryKey = collect($request->query())->keys()->first(); // ?car
+        // Фильтр по категории — по GET параметру, например: ?category=phone
+        $categoryKey = $request->query('category'); // Получаем значение из параметра category
         if ($categoryKey) {
-            $category = Category::where('url', $categoryKey)->first();
+            $category = Category::where('url', $categoryKey)->first(); // Ищем категорию по значению url
             if ($category) {
-                $query->where('category_id', $category->id);
+                $query->where('category_id', $category->id); // Фильтруем объявления по найденной категории
             }
         }
         $selectedCity = $_COOKIE['selectedCity'] ?? null;
@@ -38,7 +39,9 @@ class IndexController extends Controller
 
         return view('index', compact('ads'));
     }
-    public function redirect(){
+
+    public function redirect()
+    {
         $user = Auth::user();
         if (Auth::check()) {
             if ($user->role == 'admin') {
@@ -47,17 +50,17 @@ class IndexController extends Controller
             if ($user->role == 'user') {
                 return redirect()->route('account');
             }
-        }
-        else{
+        } else {
             return redirect()->route('home');
         }
     }
-    public function search(Request $request){
+
+    public function search(Request $request)
+    {
         $query = Ad::query();
 
         // Только активные объявления
         $query->where('status', 'Размещено');
-
         // Если есть поисковый запрос
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -67,6 +70,31 @@ class IndexController extends Controller
                     ->orWhere('description', 'like', '%' . $search . '%');
             });
         }
+        // Сортировка
+        if ($request->filled('sort')) {
+            $sort = $request->input('sort');
+            switch ($sort) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'date_asc':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'date_desc':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    // если пришёл неподдерживаемый параметр — можно проигнорировать или выбросить ошибку
+                    break;
+            }
+        } else {
+            // сортировка по умолчанию: самые свежие вверху
+            $query->orderBy('created_at', 'desc');
+        }
+
 
         $ads = $query->get();
 
@@ -75,41 +103,46 @@ class IndexController extends Controller
             'request' => $request->all()
         ]);
     }
-    public function admin(){
+
+    public function admin()
+    {
         $cities = Sity::all();
         if (Auth::user()->role === 'admin') {
             return view('admin', compact('cities'));
-        }
-        else{
+        } else {
             return $this->redirect();
         }
     }
-    public function account(){
+
+    public function account()
+    {
         if (Auth::user()->role === 'user') {
 
             $ads = Auth::user()->ads;
 
             return view('account', compact('ads'));
-        }
-        else{
+        } else {
             return $this->redirect();
         }
     }
 
-    public function ad($slug){
+    public function ad($slug)
+    {
         $ad = Ad::where('url', $slug)
             ->where('status', 'Размещено')
             ->firstOrFail();
         $ad_similar = Ad::where('category_id', $ad->category_id)->where('id', '!=', $ad->id)->where('status', 'Размещено')->get();
-        if(Auth::check()){
+        if (Auth::check()) {
             $ad_fav = Favourite::where('user_id', Auth::user()->id)->get();
-        } else{
+        } else {
             $ad_fav = [];
         }
         return view('ad', compact('ad', 'ad_similar', 'ad_fav'));
     }
-    public function fav(){
-        if(Auth::check()){
+
+    public function fav()
+    {
+        if (Auth::check()) {
             $ad_fav = Favourite::where('user_id', Auth::user()->id)->get();
         }
         return view('fav', compact('ad_fav'));

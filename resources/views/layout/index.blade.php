@@ -55,7 +55,6 @@
 
             @auth
                 <div class="sitebar-action__login">
-
                     @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
                         <a href="" data-hystmodal="#create">
                             <div class="action-linkButton">
@@ -101,26 +100,33 @@
                     </form>
                 </div>
             @endauth
-
         </div>
-        @guest()
-            <div class="sitebar-search">
+        @if(request()->routeIs('search'))
+            <div class="sitebar-filter">
                 <form action="{{ route('search') }}" method="get">
-                    <input type="text" name="search" placeholder="Поиск">
-                    <button type="submit">Найти</button>
+                    <input type="hidden" name="search" value="{{ $request['search'] }}">
+                    <select name="sort">
+                        @if(!$request['sort'])
+                            <option disabled selected>Выберите сортировку</option>
+                        @endif
+                        <option value="price_asc" @if($request['sort'] === 'price_asc') selected disabled @endif>По
+                            возрастанию цены
+                        </option>
+                        <option value="price_desc" @if($request['sort'] === 'price_desc') selected disabled @endif>
+                            По убыванию цены
+                        </option>
+                        <option value="date_asc" @if($request['sort'] === 'date_asc') selected disabled @endif>По
+                            дате публикации (старые вначале)
+                        </option>
+                        <option value="date_desc" @if($request['sort'] === 'date_desc') selected disabled @endif>По
+                            дате публикации (свежие вначале)
+                        </option>
+                    </select>
+
+                    <button type="submit">Применить</button>
                 </form>
             </div>
-        @endguest
-        @auth()
-            @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
-                <div class="sitebar-search">
-                    <form action="{{ route('search') }}" method="get">
-                        <input type="text" name="search" placeholder="Поиск">
-                        <button type="submit">Найти</button>
-                    </form>
-                </div>
-            @endif
-        @endauth
+        @endif
         <a href="#" data-hystmodal="#city">
             <div class="sitebar-city">
                 <div class="sitebar-city__ico">
@@ -134,6 +140,28 @@
 </header>
 <main>
     <div class="container">
+        <div class="page-action search">
+            @guest()
+                <div class="sitebar-search">
+                    <form action="{{ route('search') }}" method="get">
+                        <input type="hidden" name="sort" value="">
+                        <input type="text" name="search" placeholder="Поиск">
+                        <button type="submit">Найти</button>
+                    </form>
+                </div>
+            @endguest
+            @auth()
+                @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
+                    <div class="sitebar-search">
+                        <form action="{{ route('search') }}" method="get">
+                            <input type="hidden" name="sort" value="">
+                            <input type="text" name="search" placeholder="Поиск">
+                            <button type="submit">Найти</button>
+                        </form>
+                    </div>
+                @endif
+            @endauth
+        </div>
         @yield('main')
     </div>
 </main>
