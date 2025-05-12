@@ -13,7 +13,7 @@
                 <div class="product-contacts">
                     <p>Телефон: {{ $ad->user->phone }}</p>
                     <p>Продавец: {{ $ad->user->name }}</p>
-                    @if(Auth::user()->role === 'admin')
+                    @if(Auth::user()->role === 'user')
                         <form action="{{ route('fav.store') }}" method="post">
                             @csrf
                             <input type="hidden" name="ad_id" value="{{ $ad->id }}">
