@@ -37,7 +37,6 @@
             </a>
         </div>
         <div class="sitebar-action">
-
             @guest
                 <div class="sitebar-action__unlogin">
                     <a href="" data-hystmodal="#singin">
@@ -101,32 +100,48 @@
                 </div>
             @endauth
         </div>
-        @if(request()->routeIs('search'))
-            <div class="sitebar-filter">
+        @guest()
+            <div class="sitebar-search">
                 <form action="{{ route('search') }}" method="get">
-                    <input type="hidden" name="search" value="{{ $request['search'] }}">
+                    <input type="hidden" name="sort" value="">
+                    <input type="text" name="search" placeholder="Поиск">
+                    <button type="submit">Найти</button>
+                </form>
+            </div>
+        @endguest
+        @auth()
+            @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
+                <div class="sitebar-search">
+                    <form action="{{ route('search') }}" method="get">
+                        <input type="hidden" name="sort" value="">
+                        <input type="text" name="search" placeholder="Поиск">
+                        <button type="submit">Найти</button>
+                    </form>
+                </div>
+            @endif
+        @endauth
+        @if(request()->routeIs('home') || request()->routeIs('search'))
+            <div class="sitebar-filter">
+                <form action="" method="get">
                     <select name="sort">
-                        @if(!$request['sort'])
-                            <option disabled selected>Выберите сортировку</option>
+                        @if(!request()->get('sort')) <!-- Проверка наличия параметра sort -->
+                        <option disabled selected>Выберите сортировку</option>
                         @endif
-                        <option value="price_asc" @if($request['sort'] === 'price_asc') selected disabled @endif>По
-                            возрастанию цены
-                        </option>
-                        <option value="price_desc" @if($request['sort'] === 'price_desc') selected disabled @endif>
-                            По убыванию цены
-                        </option>
-                        <option value="date_asc" @if($request['sort'] === 'date_asc') selected disabled @endif>По
-                            дате публикации (старые вначале)
-                        </option>
-                        <option value="date_desc" @if($request['sort'] === 'date_desc') selected disabled @endif>По
-                            дате публикации (свежие вначале)
-                        </option>
+                        <option value="price_asc" @if(request()->get('sort') === 'price_asc') selected disabled @endif>По возрастанию цены</option>
+                        <option value="price_desc" @if(request()->get('sort') === 'price_desc') selected disabled @endif>По убыванию цены</option>
+                        <option value="date_asc" @if(request()->get('sort') === 'date_asc') selected disabled @endif>По дате публикации (старые вначале)</option>
+                        <option value="date_desc" @if(request()->get('sort') === 'date_desc') selected disabled @endif>По дате публикации (свежие вначале)</option>
                     </select>
 
+                    <!-- Добавляем другие GET параметры в URL -->
+                    @foreach(request()->except('sort') as $key => $value)  <!-- Теперь используем request() -->
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endforeach
                     <button type="submit">Применить</button>
                 </form>
             </div>
         @endif
+
         <a href="#" data-hystmodal="#city">
             <div class="sitebar-city">
                 <div class="sitebar-city__ico">
@@ -140,28 +155,6 @@
 </header>
 <main>
     <div class="container">
-        <div class="page-action search">
-            @guest()
-                <div class="sitebar-search">
-                    <form action="{{ route('search') }}" method="get">
-                        <input type="hidden" name="sort" value="">
-                        <input type="text" name="search" placeholder="Поиск">
-                        <button type="submit">Найти</button>
-                    </form>
-                </div>
-            @endguest
-            @auth()
-                @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
-                    <div class="sitebar-search">
-                        <form action="{{ route('search') }}" method="get">
-                            <input type="hidden" name="sort" value="">
-                            <input type="text" name="search" placeholder="Поиск">
-                            <button type="submit">Найти</button>
-                        </form>
-                    </div>
-                @endif
-            @endauth
-        </div>
         @yield('main')
     </div>
 </main>

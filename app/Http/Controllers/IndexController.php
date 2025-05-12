@@ -34,10 +34,36 @@ class IndexController extends Controller
                 $query->where('city_id', $city->id);
             }
         }
-
+        // Сортировка
+        if ($request->filled('sort')) {
+            $sort = $request->input('sort');
+            switch ($sort) {
+                case 'price_asc':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'date_asc':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'date_desc':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    // если пришёл неподдерживаемый параметр — можно проигнорировать или выбросить ошибку
+                    break;
+            }
+        } else {
+            // сортировка по умолчанию: самые свежие вверху
+            $query->orderBy('created_at', 'desc');
+        }
         $ads = $query->get();
 
-        return view('index', compact('ads'));
+        return view('index', [
+            'ads' => $ads,
+            'request' => $request->all()
+        ]);
     }
 
     public function redirect()

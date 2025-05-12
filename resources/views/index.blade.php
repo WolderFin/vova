@@ -4,7 +4,7 @@
         @foreach($globalCategory as $category)
             <a href="?category={{$category->url}}"><p>{{$category->name}}</p></a>
         @endforeach
-            <a href="{{route('home')}}"><p>Сбросить фильтр</p></a>
+        <a href="{{route('home')}}"><p>Сбросить фильтр</p></a>
     </div>
     <div class="page-action">
         <h1 id="indexPage-title">Все объявления</h1>
@@ -34,11 +34,17 @@
         @endif
     </div>
     <script>
-        const cities = new Map([
-            @foreach($globalCategory as $category)
+        const categoryList = new Map([
+                @foreach($globalCategory as $category)
             ['{{$category->url}}', '{{$category->name}}'],
             @endforeach
         ])
+        const cities = new Map([
+                @foreach($globalCity as $city)
+            ['{{$city->name}}', '{{$city->in_city}}'],
+            @endforeach
+        ])
+
         // Функция для получения значения из URL параметра
         function getQueryParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -54,19 +60,19 @@
         }
 
         // Основная логика
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', function () {
             // Получаем категорию из GET-запроса (имя категории)
             const category = getQueryParam('category');  // Например, "phone"
 
             // Получаем город из куки
-            const city = getCookie('selectedCity');
+            const city = cities.get(getCookie('selectedCity'));
 
             // Определяем название
-            let title = category ? cities.get(category) : "Все объявления";  // Если категория не указана, показываем "Все объявления"
+            let title = category ? categoryList.get(category) : "Все объявления";  // Если категория не указана, показываем "Все объявления"
 
             // Добавляем город, если он есть
             if (city) {
-                title = `${title} в ${city}`;
+                title = `${title} ${city}`;
             } else {
                 title = `${title} в России`;
             }
