@@ -13,7 +13,7 @@ class AdController extends Controller
 {
     public function ads(){
 
-        $ads = Ad::all();
+        $ads = Ad::where('status', '!=', 'Размещено')->get();
 
         return view('admin.ads', compact('ads'));
 
